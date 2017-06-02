@@ -11,3 +11,6 @@ This is a fork of [Wolfenstein 3D v6.0 for the PSP by Zack and Chilly Willy](htt
 * [Zack's profile on DCemu](http://www.dcemu.co.uk/vbulletin/members/39283683-Zack)
 * [Chilly Willy's Ice Flow (Google Group)](https://groups.google.com/forum/#!forum/chilly-willys-ice-flow)
 * [Chilly Willy's profile on Exophase](https://forums.exophase.com/members/chilly-willy.670/)
+
+# Just for fun
+* [I got to ask John Carmack a question :)](https://www.youtube.com/watch?v=lHLpKzUxjGk&t=4338s)
