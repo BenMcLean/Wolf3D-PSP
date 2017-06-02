@@ -9,16 +9,12 @@ OBJS = 	Src/automap.o \
 		Src/fmopl.o \
 		Src/vi_comm.o \
 		Src/vi_sdl.o \
-		Src/vi_svga.o \
-		Src/vi_xlib.o \
 		Src/wl_act1.o \
 		Src/wl_act2.o \
 		Src/wl_act3.o \
 		Src/wl_agent.o \
 		Src/wl_debug.o \
 		Src/sd_comm.o \
-		Src/sd_null.o \
-		Src/sd_oss.o \
 		Src/sd_sdl.o \
 		Src/wl_draw.o \
 		Src/wl_game.o \
