@@ -4,3 +4,4 @@ This is a fork of [Wolfenstein 3D v6.0 for the PSP by Zack and Chilly Willy](htt
 
 * [PSP Programming wikibook](https://en.wikibooks.org/wiki/PSP_Programming)
 * [Compiling an SDL program written in C/C++ for the PSP](http://www.benoitren.be/sdlpsp.html)
+* [SVGAlib (seems to be a dependency)](http://svgalib.org/)
