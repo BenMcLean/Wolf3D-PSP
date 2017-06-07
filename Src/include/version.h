@@ -9,7 +9,7 @@
 // Mode 3 = SOD Full / SOD Episode 1 & 2
 
 #ifndef WMODE
-#define WMODE 3
+#define WMODE 1
 #endif
 
 /* --- End of User-Modifiable Variables --- */
