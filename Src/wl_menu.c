@@ -3135,23 +3135,22 @@ void CheckForEpisodes()
 	struct ffblk f;
 
 #ifdef SPEAR
-
 #ifdef SPEARDEMO
-		if (!findfirst("*.sdm", &f, FA_ARCH)) {
-			strcpy(extension, "sdm");
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DEMO DATA FILES TO BE FOUND!");
+	if (!findfirst("*.sdm", &f, FA_ARCH)) {
+		strcpy(extension, "sdm");
+	}
+	else
+		Quit("NO SPEAR OF DESTINY DEMO DATA FILES TO BE FOUND!");
 #else /* SPEARDEMO */
-		if (!findfirst("*.sod", &f, FA_ARCH)) {
-			strcpy(extension, "sod");
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+	if (!findfirst("*.sod", &f, FA_ARCH)) {
+		strcpy(extension, "sod");
+	}
+	else
+		Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
 #endif /* SPEARDEMO */
+#else /* SPEAR */
 
-/* elif from SPEAR */
-#elif !defined(UPLOAD)
+#ifndef UPLOAD
 	if (!findfirst("*.wl6", &f, FA_ARCH)) {
 		strcpy(extension, "wl6");
 		NewEmenu[2].active =
@@ -3172,17 +3171,35 @@ void CheckForEpisodes()
 			EpisodeSelect[1] =
 			EpisodeSelect[2] = 1;
 	}
-#endif /* elif !defined(UPLOAD) */
+	else
+#endif /* UPLOAD */
+		if (!findfirst("*.wl1", &f, FA_ARCH)) {
+			strcpy(extension, "wl1");
+		}
+		else
+			Quit("NO WOLFENSTEIN 3-D DEMO FILES to be found!");
 
-/* elif from HAVE_FFBLK */
+	/* elif from HAVE_FFBLK */
 #elif defined(HAVE_FINDDATA)
 	struct _finddata_t f;
 
-	//
-	// ENGLISH
-	//
+#ifdef SPEAR
+#ifdef SPEARDEMO
+	if (_findfirst("*.sdm", &f) != -1) {
+		strcpy(extension, "sdm");
+	}
+	else
+		Quit("NO SPEAR OF DESTINY DEMO FILES TO BE FOUND!");
+#else /* SPEARDEMO */
+	if (_findfirst("*.sod", &f) != -1) {
+		strcpy(extension, "sod");
+	}
+	else
+		Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+#endif /* SPEARDEMO */
+#else /* SPEAR */
+
 #ifndef UPLOAD
-#ifndef SPEAR
 	if (_findfirst("*.wl6", &f) != -1)
 	{
 		strcpy(extension, "wl6");
@@ -3205,25 +3222,7 @@ void CheckForEpisodes()
 			EpisodeSelect[2] = 1;
 	}
 	else
-#endif /* SPEAR */
 #endif /* UPLOAD */
-
-#ifdef SPEAR
-#ifndef SPEARDEMO
-		if (_findfirst("*.sod", &f) != -1) {
-			strcpy(extension, "sod");
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
-#else /* SPEARDEMO */
-		if (_findfirst("*.sdm", &f) != -1) {
-			strcpy(extension, "sdm");
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DEMO DATA FILES TO BE FOUND!");
-#endif /* SPEARDEMO */
-
-#else /* SPEAR */
 		if (_findfirst("*.wl1", &f) != -1) {
 			strcpy(extension, "wl1");
 		}
@@ -3233,11 +3232,27 @@ void CheckForEpisodes()
 
 #else /* HAVE_FFBLK */
 	glob_t globbuf;
-	//
-	// ENGLISH
-	//
+
+#ifdef SPEAR
+#ifndef SPEARDEMO
+	if (glob("*.sod", 0, NULL, &globbuf) == 0) {
+		strcpy(extension, "sod");
+		if (glob("*.sd2", 0, NULL, &globbuf) == 0)
+			havemissiontwo = true;
+		if (glob("*.sd3", 0, NULL, &globbuf) == 0)
+			havemissionthree = true;
+	}
+	else
+		Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+#else /* SPEARDEMO */
+	if (glob("*.sdm", 0, NULL, &globbuf) == 0)
+		strcpy(extension, "sdm");
+	else
+		Quit("NO SPEAR OF DESTINY DEMO DATA FILES TO BE FOUND!");
+#endif /* SPEARDEMO */
+#else /* SPEAR */
+
 #ifndef UPLOAD
-#ifndef SPEAR
 	if (glob("*.wl6", 0, NULL, &globbuf) == 0) {
 		strcpy(extension, "wl6");
 		NewEmenu[2].active =
@@ -3259,32 +3274,10 @@ void CheckForEpisodes()
 			EpisodeSelect[2] = 1;
 	}
 	else
-#endif /* SPEAR */
 #endif /* UPLOAD */
 
-#ifdef SPEAR
-#ifndef SPEARDEMO
-		if (glob("*.sod", 0, NULL, &globbuf) == 0) {
-			strcpy(extension, "sod");
-			if (glob("*.sd2", 0, NULL, &globbuf) == 0)
-				havemissiontwo = true;
-			if (glob("*.sd3", 0, NULL, &globbuf) == 0)
-				havemissionthree = true;
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
-#else /* SPEARDEMO */
-		if (glob("*.sdm", 0, NULL, &globbuf) == 0) {
-			strcpy(extension, "sdm");
-		}
-		else
-			Quit("NO SPEAR OF DESTINY DEMO DATA FILES TO BE FOUND!");
-#endif /* SPEARDEMO */
-
-#else /* SPEAR */
-		if (glob("*.wl1", 0, NULL, &globbuf) == 0) {
+		if (glob("*.wl1", 0, NULL, &globbuf) == 0)
 			strcpy(extension, "wl1");
-		}
 		else
 			Quit("NO WOLFENSTEIN 3-D DATA FILES TO BE FOUND!");
 #endif /* SPEAR */
