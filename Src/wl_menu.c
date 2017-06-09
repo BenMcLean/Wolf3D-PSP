@@ -3242,7 +3242,7 @@ void CheckForEpisodes()
 			Quit("NO WOLFENSTEIN 3-D DATA FILES TO BE FOUND!");
 #endif /* SPEAR */
 
-#else
+#else /* HAVE_FFBLK */
 	glob_t globbuf;
 	//
 	// ENGLISH
@@ -3301,7 +3301,7 @@ void CheckForEpisodes()
 #endif /* SPEAR */
 
 	globfree(&globbuf);
-#endif
+#endif /* HAVE_FFBLK */
 
 	strcat(configname, extension);
 	strcat(SaveName, extension);
