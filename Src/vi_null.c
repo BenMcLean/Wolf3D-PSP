@@ -30,7 +30,7 @@ void Quit(char *error)
 	ShutdownId();
 	
 	if (screen) {
-		/* printf("spiffy ansi screen goes here..\n"); */
+		/* pspDebugScreenPrintf("spiffy ansi screen goes here..\n"); */
 	}
 	
 	if (error && *error) {

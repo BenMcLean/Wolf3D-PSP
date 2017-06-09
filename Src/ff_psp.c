@@ -48,8 +48,8 @@ int findfirst(const char *pathname, struct ffblk *ffblk, int attrib) {
   for(i=0;i<strlen(match);i++) { 
 	if(match[i]>='a' && match[i]<='z') match[i]^=32; 
   }
-printf("Looking for '%s' (%s)\n",match,pathname);
-if(!dirhandle) printf("Couldn't open dir.\n");
+pspDebugScreenPrintf("Looking for '%s' (%s)\n",match,pathname);
+if(!dirhandle) pspDebugScreenPrintf("Couldn't open dir.\n");
 
   dirsize=0;
   if(!dirhandle) {
@@ -68,7 +68,7 @@ if(!dirhandle) printf("Couldn't open dir.\n");
     dirfname[dirsize++]=strdup(ent->d_name);
   } 
   closedir(dirhandle);
-printf("Got %d matches\n",dirsize);
+pspDebugScreenPrintf("Got %d matches\n",dirsize);
   //if(match) free(match);
   if (dirsize>0) {
     dirpos=1;

@@ -781,7 +781,7 @@ static void PML_OpenPageFile()
 	strcpy(fname, pfilename);
 	strcat(fname, extension);
 
-printf("Opening page file %s\n",fname);
+pspDebugScreenPrintf("Opening page file %s\n",fname);
 	PageFile = OpenRead(fname);
 	if (PageFile == -1)
 		Quit("PML_OpenPageFile: Unable to open page file");

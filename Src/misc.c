@@ -155,30 +155,30 @@ static void put_dos2ansi(byte attrib)
 			break;
 	}
 	if (blink)
-		printf ("%c[%d;5;%dm%c[%dm", 27, intens, fore, 27, back);
+		pspDebugScreenPrintf ("%c[%d;5;%dm%c[%dm", 27, intens, fore, 27, back);
 	else
-		printf ("%c[%d;25;%dm%c[%dm", 27, intens, fore, 27, back);
+		pspDebugScreenPrintf ("%c[%d;25;%dm%c[%dm", 27, intens, fore, 27, back);
 }
 
 void DisplayTextSplash(byte *text, int l)
 {
 	int i, x;
 	
-	//printf("%02X %02X %02X %02X\n", text[0], text[1], text[2], text[3]);
+	//pspDebugScreenPrintf("%02X %02X %02X %02X\n", text[0], text[1], text[2], text[3]);
 	text += 4;
-	//printf("%02X %02X %02X %02X\n", text[0], text[1], text[2], text[3]);
+	//pspDebugScreenPrintf("%02X %02X %02X %02X\n", text[0], text[1], text[2], text[3]);
 	text += 2;
 	
 	for (x = 0; x < l; x++) {
 		for (i = 0; i < 160; i += 2) {
 			put_dos2ansi(text[160*x+i+2]);
 			if (text[160*x+i+1] && text[160*x+i+1] != 160)
-				printf("%c", text[160*x+i+1]);
+				pspDebugScreenPrintf("%c", text[160*x+i+1]);
 			else
-				printf(" ");
+				pspDebugScreenPrintf(" ");
 		}
-		printf("%c[m", 27);
-		printf("\n");
+		pspDebugScreenPrintf("%c[m", 27);
+		pspDebugScreenPrintf("\n");
 	}
 }
 

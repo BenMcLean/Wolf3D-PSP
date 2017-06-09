@@ -132,7 +132,7 @@ void VL_DeModeXize(byte *buf, int width, int height)
 	int plane, x, y;
 	
 	if (width & 3) {
-		printf("Not divisible by 4?\n");
+		pspDebugScreenPrintf("Not divisible by 4?\n");
 		return;
 	}
 	

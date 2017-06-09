@@ -292,7 +292,7 @@ configend:
 		CloseRead(fd);
 
 	if (!configokay) {
-		printf("Config: Setting defaults..\n");
+		pspDebugScreenPrintf("Config: Setting defaults..\n");
 		SetDefaults();
 	}
 
@@ -1199,11 +1199,11 @@ int WolfMain(int argc, char *argv[])
 	_argv = argv;
 
 	if (MS_CheckParm("version")) {
-		printf("Game: %s\n", GAMENAME);
+		pspDebugScreenPrintf("Game: %s\n", GAMENAME);
 		Quit(NULL);
 	}
 
-	printf("Now Loading %s\n", GAMENAME);
+	pspDebugScreenPrintf("Now Loading %s\n", GAMENAME);
 
 	CheckForEpisodes();
 

@@ -338,7 +338,7 @@ void SD_Startup()
 	sqActive = false;
 
 	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		printf("failed to init audio\n");
+		pspDebugScreenPrintf("failed to init audio\n");
 		return;
     }
 
@@ -348,11 +348,11 @@ void SD_Startup()
 	aspec.samples = NUM_SAMPS;
 	aspec.callback = SoundCallBack;
 	if ( SDL_OpenAudio(&aspec, NULL) < 0 ) {
-		printf("couldn't open audio with desired format\n");
+		pspDebugScreenPrintf("couldn't open audio with desired format\n");
 		return;
 	}
 
-	printf("Configured audio device with %d samples/slice\n", aspec.samples);
+	pspDebugScreenPrintf("Configured audio device with %d samples/slice\n", aspec.samples);
 	InitSoundBuff();
 	SDL_PauseAudio(0);
 
