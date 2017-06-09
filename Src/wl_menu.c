@@ -3178,8 +3178,9 @@ void CheckForEpisodes()
 		}
 		else
 			Quit("NO WOLFENSTEIN 3-D DEMO FILES to be found!");
+#endif /* SPEAR */
 
-	/* elif from HAVE_FFBLK */
+/* elif from HAVE_FFBLK */
 #elif defined(HAVE_FINDDATA)
 	struct _finddata_t f;
 
