@@ -471,7 +471,7 @@ void DrawMainMenu()
 void CP_ReadThis()
 {
 	StartCPMusic(CORNER_MUS);
-	HelpScreens();
+	//HelpScreens();
 	StartCPMusic(MENUSONG);
 }
 #else
