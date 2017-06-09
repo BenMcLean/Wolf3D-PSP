@@ -1,7 +1,6 @@
 #ifndef __VERSION_H__
 #define __VERSION_H__
 
-
 /* Change WMODE to point to the executable you would like to build: */
 // Mode 0 = Wolf3D Shareware
 // Mode 1 = Wolf3d Full
@@ -10,9 +9,13 @@
 
 #ifndef WMODE
 #define WMODE 0
-#endif
+#endif /* WMODE */
 
 /* --- End of User-Modifiable Variables --- */
+
+#define GAMEHDR		"WOLF3D\0\0"
+#define	SAVTYPE		"SAV\0"
+#define CFGTYPE		"CFG\0"
 
 #if WMODE == 0
 /* #define SPEAR */
@@ -46,13 +49,8 @@
 #define GAMEEXT		"sod"
 #define GAMETYPE	"SOD\0"
 
-#else
-#error "please edit version.h and fix WMODE"
-#endif
-
-#define GAMEHDR		"WOLF3D\0\0"
-
-#define	SAVTYPE		"SAV\0"
-#define CFGTYPE		"CFG\0"
+#else /* WMODE */
+#error "Please edit version.h and fix WMODE"
+#endif /* WMODE */
 
 #endif
