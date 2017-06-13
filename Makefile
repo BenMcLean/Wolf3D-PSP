@@ -20,10 +20,10 @@ OBJS = 	Src/automap.o \
 		Src/wl_game.o \
 		Src/wl_inter.o \
 		Src/wl_main.o \
-		Src/wl_text.o \
 		Src/wl_menu.o \
 		Src/wl_play.o \
 		Src/wl_state.o \
+		Src/wl_text.o \
 		Src/pspDveManager.o \
 
 CFLAGS = -O1 -G0 -Wall -g -DHAVE_FFBLK -DDOSISM
