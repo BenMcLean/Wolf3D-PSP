@@ -808,8 +808,6 @@ pspDebugScreenPrintf("Opening page file %s\n",fname);
 	for (i = 0, page = PMPages; i < ChunksInFile; i++, page++) {
 		page->length = ReadInt16(PageFile);
 	}
-	
-	pspDebugScreenPrintf("Doing OK so far!");
 }
 
 static void PML_ClosePageFile()

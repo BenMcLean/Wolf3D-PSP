@@ -1018,6 +1018,8 @@ void InitGame()
 	SD_Startup();
 	US_Startup();
 
+	pspDebugScreenPrintf("Doing OK so far!");
+	
 //
 // build some tables
 //
