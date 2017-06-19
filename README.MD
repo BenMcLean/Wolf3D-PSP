@@ -11,4 +11,4 @@ This is a fork of [Wolfenstein 3D v6.0 for the PSP by Zack and Chilly Willy](htt
 * [Compiling an SDL program written in C/C++ for the PSP](http://www.benoitren.be/sdlpsp.html)
 
 # Just for fun
-* [I got to ask John Carmack a question! ^_^1](https://www.youtube.com/watch?v=lHLpKzUxjGk&t=4338s)
+* [I got to ask John Carmack a question! ^_^](https://www.youtube.com/watch?v=lHLpKzUxjGk&t=4338s)

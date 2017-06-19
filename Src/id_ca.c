@@ -783,8 +783,10 @@ static void PML_OpenPageFile()
 
 pspDebugScreenPrintf("Opening page file %s\n",fname);
 	PageFile = OpenRead(fname);
-	if (PageFile == -1)
+	if (PageFile == -1) {
+		pspDebugScreenPrintf("PML_OpenPageFile: Unable to open page file");
 		Quit("PML_OpenPageFile: Unable to open page file");
+	}
 
 	/* Read in header variables */
 	ChunksInFile = ReadInt16(PageFile);
