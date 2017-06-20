@@ -1013,12 +1013,15 @@ void InitGame()
 	MM_Startup();
 	PM_Startup();
 	CA_Startup();
+	
+	pspDebugScreenPrintf("Doing OK so far!");
+	SceCtrlData pad;
+	while (!(pad.Buttons & PSP_CTRL_CROSS)) {};
+	
 	VW_Startup();
 	IN_Startup();
 	SD_Startup();
 	US_Startup();
-
-	pspDebugScreenPrintf("Doing OK so far!");
 	
 //
 // build some tables
