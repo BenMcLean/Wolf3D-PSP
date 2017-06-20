@@ -1023,6 +1023,7 @@ void InitGame()
 	while (!(pad.Buttons & PSP_CTRL_CROSS)) {
 		sceCtrlPeekBufferPositive(&buttonInput, 1);
 	}
+	pspDebugScreenPrintf("Button pressed");
 	
 	VW_Startup();
 	IN_Startup();
