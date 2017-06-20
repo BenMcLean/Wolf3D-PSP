@@ -1016,12 +1016,10 @@ void InitGame()
 	
 	pspDebugScreenPrintf("Doing OK so far!");
 	
-	SceCtrlData buttonInput;
-	sceCtrlSetSamplingCycle(0);
-	sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
-	sceCtrlPeekBufferPositive(&buttonInput, 1);
-	while (!(pad.Buttons & PSP_CTRL_CROSS)) {
-		sceCtrlPeekBufferPositive(&buttonInput, 1);
+	SceCtrlLatch latch;
+	sceCtrlReadLatch(&latch);
+	while (!(latch.uiMake & PSP_CTRL_CROSS)) {
+		sceCtrlReadLatch(&latch);
 	}
 	pspDebugScreenPrintf("Button pressed");
 	
