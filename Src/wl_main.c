@@ -1013,15 +1013,6 @@ void InitGame()
 	MM_Startup();
 	PM_Startup();
 	CA_Startup();
-	
-	pspDebugScreenPrintf("Doing OK so far!");
-	SceCtrlLatch latch;
-	sceCtrlReadLatch(&latch);
-	while (!(latch.uiMake & PSP_CTRL_CROSS)) {
-		sceCtrlReadLatch(&latch);
-	}
-	pspDebugScreenPrintf("Button pressed");
-
 	VW_Startup();
 	IN_Startup();
 	SD_Startup();

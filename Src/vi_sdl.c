@@ -90,6 +90,14 @@ void VL_Startup()
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_NOPARACHUTE) < 0) {
 		Quit("Couldn't init SDL");
 	}
+	
+	pspDebugScreenPrintf("Doing OK so far!");
+	SceCtrlLatch latch;
+	sceCtrlReadLatch(&latch);
+	while (!(latch.uiMake & PSP_CTRL_CROSS)) {
+		sceCtrlReadLatch(&latch);
+	}
+	pspDebugScreenPrintf("Button pressed");
 
 	surface = SDL_SetVideoMode(vwidth, vheight, 8, SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
 
