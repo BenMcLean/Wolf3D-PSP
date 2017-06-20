@@ -91,6 +91,8 @@ void VL_Startup()
 		Quit("Couldn't init SDL");
 	}
 	
+	surface = SDL_SetVideoMode(vwidth, vheight, 8, SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
+	
 	pspDebugScreenPrintf("Doing OK so far!");
 	SceCtrlLatch latch;
 	sceCtrlReadLatch(&latch);
@@ -99,10 +101,9 @@ void VL_Startup()
 	}
 	pspDebugScreenPrintf("Button pressed");
 
-	surface = SDL_SetVideoMode(vwidth, vheight, 8, SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
-
 	if (surface == NULL) {
 		SDL_Quit();
+		pspDebugScreenPrintf("Couldn't set 512x320 mode");
 		Quit("Couldn't set 512x320 mode");
 	}
 	gfxbuf = surface->pixels;
