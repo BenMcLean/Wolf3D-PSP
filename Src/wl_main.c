@@ -1015,8 +1015,14 @@ void InitGame()
 	CA_Startup();
 	
 	pspDebugScreenPrintf("Doing OK so far!");
-	SceCtrlData pad;
-	while (!(pad.Buttons & PSP_CTRL_CROSS)) {};
+	
+	SceCtrlData buttonInput;
+	sceCtrlSetSamplingCycle(0);
+	sceCtrlSetSamplingMode(PSP_CTRL_MODE_ANALOG);
+	sceCtrlPeekBufferPositive(&buttonInput, 1);
+	while (!(pad.Buttons & PSP_CTRL_CROSS)) {
+		sceCtrlPeekBufferPositive(&buttonInput, 1);
+	}
 	
 	VW_Startup();
 	IN_Startup();
