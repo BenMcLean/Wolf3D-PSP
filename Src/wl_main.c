@@ -1015,7 +1015,6 @@ void InitGame()
 	CA_Startup();	
 	VW_Startup();
 	IN_Startup();
-	SD_Startup();
 	
 	pspDebugScreenPrintf("Doing OK so far!");
 	SceCtrlLatch latch;
@@ -1025,6 +1024,7 @@ void InitGame()
 	}
 	pspDebugScreenPrintf("Button pressed");
 
+	SD_Startup();
 	US_Startup();
 	
 //
