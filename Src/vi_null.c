@@ -16,6 +16,15 @@ byte *gfxbuf = NULL;
 
 void Quit(char *error)
 {
+	pspDebugScreenInit();
+    pspDebugScreenSetBackColor(0xFF000000);
+    pspDebugScreenSetTextColor(0xFFFFFFFF);
+    pspDebugScreenClear();
+
+	pspDebugScreenPrintf("\n  %s", error);
+	
+	waitbutton(-1);
+	
 	memptr screen = NULL;
 
 	if (!error || !*error) {
@@ -38,6 +47,19 @@ void Quit(char *error)
 		exit(EXIT_FAILURE);
  	}
 	exit(EXIT_SUCCESS);
+}
+
+int waitbutton(int mask) {
+	SceCtrlData paddata;
+	do {
+		sceDisplayWaitVblankStart();
+		sceCtrlReadBufferPositive(&paddata, 1);
+	} while((paddata.Buttons & mask));
+	do {
+		sceDisplayWaitVblankStart();
+		sceCtrlReadBufferPositive(&paddata, 1);
+	} while(!(paddata.Buttons & mask));
+	return paddata.Buttons;
 }
 
 void VL_WaitVBL(int vbls)
