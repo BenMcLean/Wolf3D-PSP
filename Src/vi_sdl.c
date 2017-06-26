@@ -93,14 +93,6 @@ void VL_Startup()
 	
 	surface = SDL_SetVideoMode(vwidth, vheight, 8, SDL_SWSURFACE|SDL_HWPALETTE|SDL_FULLSCREEN);
 	
-	pspDebugScreenPrintf("Doing OK so far!");
-	SceCtrlLatch latch;
-	sceCtrlReadLatch(&latch);
-	while (!(latch.uiMake & PSP_CTRL_CROSS)) {
-		sceCtrlReadLatch(&latch);
-	}
-	pspDebugScreenPrintf("Button pressed");
-
 	if (surface == NULL) {
 		SDL_Quit();
 		pspDebugScreenPrintf("Couldn't set 512x320 mode");
@@ -115,6 +107,18 @@ void VL_Startup()
 		SDL_ShowCursor(0);
 
 	SDL_WM_SetCaption(GAMENAME, GAMENAME);
+
+	pspDebugScreenInit();
+    pspDebugScreenSetBackColor(0xFF000000);
+    pspDebugScreenSetTextColor(0xFFFFFFFF);
+    pspDebugScreenClear();	
+	pspDebugScreenPrintf("Doing OK so far!");
+	SceCtrlLatch latch;
+	sceCtrlReadLatch(&latch);
+	while (!(latch.uiMake & PSP_CTRL_CROSS)) {
+		sceCtrlReadLatch(&latch);
+	}
+	pspDebugScreenPrintf("Button pressed");
 }
 
 /*
