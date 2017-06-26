@@ -109,9 +109,9 @@ void VL_Startup()
 	SDL_WM_SetCaption(GAMENAME, GAMENAME);
 
 	pspDebugScreenInit();
-    pspDebugScreenSetBackColor(0xFF000000);
-    pspDebugScreenSetTextColor(0xFFFFFFFF);
-    pspDebugScreenClear();	
+	pspDebugScreenSetBackColor(0xFF000000);
+	pspDebugScreenSetTextColor(0xFFFFFFFF);
+	pspDebugScreenClear();
 	pspDebugScreenPrintf("Doing OK so far!");
 	SceCtrlLatch latch;
 	sceCtrlReadLatch(&latch);
