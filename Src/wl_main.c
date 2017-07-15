@@ -434,11 +434,6 @@ int SaveTheGame(char *fn, char *tag, int x, int y)
 	WriteBytes(fd, (byte *)&pwallpos, sizeof(pwallpos));
 	checksum = DoChecksum((byte*)&pwallpos, sizeof(pwallpos),checksum);
 
-	DiskFlopAnim(x,y);
-
-	WriteBytes(fd, (byte *)&Auto_Map, sizeof(automap_t));
-	checksum = DoChecksum((byte*)&Auto_Map, sizeof(automap_t), checksum);
-
 	// WRITE OUT CHECKSUM
 
 	WriteBytes(fd, (byte *)&checksum, sizeof(checksum));
@@ -597,11 +592,6 @@ int LoadTheGame(char *fn, int x, int y)
 	ReadBytes(fd, (byte *)&pwallpos, sizeof(pwallpos));
 	checksum = DoChecksum((byte*)&pwallpos, sizeof(pwallpos),checksum);
 
-	DiskFlopAnim(x,y);
-
-	ReadBytes(fd, (byte *)&Auto_Map, sizeof(automap_t));
-	checksum = DoChecksum((byte*)&Auto_Map, sizeof(automap_t),checksum);
-
 	ReadBytes(fd, (byte *)&oldchecksum, sizeof(oldchecksum));
 	if (oldchecksum != checksum)
 	{
@@ -612,8 +602,6 @@ int LoadTheGame(char *fn, int x, int y)
 
 		IN_ClearKeysDown();
 		IN_Ack();
-
-		memset((void *)&Auto_Map, 0, sizeof(automap_t));
 
 		gamestate.score = 0;
 		gamestate.lives = 1;

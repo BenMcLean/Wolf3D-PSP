@@ -546,12 +546,6 @@ typedef struct statestruct
 	int next; /* stateenum */
 } statetype;
 
-typedef struct automap
-{
-	byte	walls, secrets, items, enemies;
-	byte	seen[MAPSIZE][MAPSIZE];
-} automap_t;
-
 //---------------------
 //
 // trivial actor structure
@@ -591,7 +585,7 @@ typedef struct doorstruct
 typedef struct objstruct
 {
 	int		id;
-
+	
 	activetype	active;
 	int		ticcount;
 	classtype	obclass;
@@ -717,10 +711,6 @@ extern long finetangent[FINEANGLES/4];
 extern fixed sintable[], *costable;
 
 extern char configname[13];
-
-extern automap_t Auto_Map;
-
-void AutoMap(void);
 
 void CalcProjection(long focal);
 void NewGame(int difficulty,int episode);
@@ -900,7 +890,7 @@ void FizzleFade(boolean abortable, int frames, int color);
 #define SPDPATROL	512
 #define SPDDOG		1500
 
-void	SpawnNewObj(unsigned tilex, unsigned tiley, int state); /* stateenum */
+void	SpawnNewObj(unsigned tilex, unsigned tiley, int state); /* stateenum */ 
 void	NewState(objtype *ob, int state); /* stateenum */
 
 boolean TryWalk (objtype *ob);

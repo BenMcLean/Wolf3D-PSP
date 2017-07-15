@@ -1010,12 +1010,12 @@ void T_Will(objtype *ob)
 
 void SpawnDeath(int tilex, int tiley)
 {
-	//unsigned	far *map,tile;
+	unsigned	far *map,tile;
 
-	//if (SoundBlasterPresent && DigiMode != sds_Off)
-		//s_deathdie2.tictime = 105;
+	if (SoundBlasterPresent && DigiMode != sds_Off)
+		s_deathdie2.tictime = 105;
 
-	//SpawnNewObj (tilex,tiley,&s_deathstand);
+	SpawnNewObj (tilex,tiley,&s_deathstand);
 	new->obclass = deathobj;
 	new->hitpoints = starthitpoints[gamestate.difficulty][en_death];
 	new->flags |= FL_SHOOTABLE|FL_AMBUSH;

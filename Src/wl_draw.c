@@ -1,4 +1,4 @@
-#include "include/wl_def.h"
+#include "include/wl_def.h" 
 
 /* C AsmRefresh() and related code
    originally from David Haslam -- dch@sirius.demon.co.uk */
@@ -42,7 +42,7 @@ __extension__  \
 
 void ScaleShape(int xcenter, int shapenum, unsigned height);
 void SimpleScaleShape(int xcenter, int shapenum, unsigned height);
-
+ 
 /* ======================================================================== */
 
 /*
@@ -145,7 +145,7 @@ static void TransformActor(objtype *ob)
 		return;
 	}
 
-	ob->viewx = centerx + ny*scale/nx;
+	ob->viewx = centerx + ny*scale/nx;	
 
 	ob->viewheight = heightnumerator/(nx>>8);
 }
@@ -204,7 +204,7 @@ static boolean TransformTile(int tx, int ty, int *dispx, int *dispheight)
 		return false;
 	}
 
-	*dispx = centerx + ny*scale/nx;
+	*dispx = centerx + ny*scale/nx;	
 
 	*dispheight = heightnumerator/(nx>>8);
 
@@ -333,7 +333,7 @@ static void DrawScaleds()
 		|| (*(visspot-63) && !*(tilespot-63))
 		|| (*(visspot+65) && !*(tilespot+65))
 		|| (*(visspot+64) && !*(tilespot+64))
-		|| (*(visspot+63) && !*(tilespot+63)))
+		|| (*(visspot+63) && !*(tilespot+63))) 
 		{
 			obj->active = true;
 			TransformActor(obj);
@@ -434,7 +434,7 @@ static void DrawPlayerWeapon()
 static void WallRefresh()
 {
 	viewangle = player->angle;
-
+	
 	viewsin = sintable[viewangle];
 	viewcos = costable[viewangle];
 	viewx = player->x - FixedByFrac(focallength, viewcos);
@@ -469,17 +469,17 @@ static byte *mr_dest;
 static void MapRow()
 {
 	unsigned int ebx, edx, esi;
-
+	
 	edx = (mr_ystep << 16) | (mr_xstep);
 	esi = (mr_yfrac << 16) | (mr_xfrac);
-
+	
 	while (mr_count--) {
 		ebx = ((esi & 0xFC000000) >> 25) | ((esi & 0xFC00) >> 3);
 		esi += edx;
 		//ebx = ((mr_yfrac & 0xFC00) >> (25-16)) | ((mr_xfrac & 0xFC00) >> 3);
 		//mr_yfrac += mr_ystep;
 		//mr_xfrac += mr_xstep;
-
+		
 		mr_dest[0] = planepics[ebx+0];
 		mr_dest[mr_rowofs] = planepics[ebx+1];
 		mr_dest++;
@@ -499,7 +499,7 @@ static void DrawSpans(int x1, int x2, int height)
 {
 	fixed length;
 	int prestep;
-	fixed startxfrac, startyfrac;
+	fixed startxfrac, startyfrac; 
 	byte *toprow;
 
 	toprow = planeylookup[height]+(vstride*yoffset+xoffset);
@@ -555,7 +555,7 @@ static void SetPlaneViewSize()
 		*dest = *src++;
 		dest += 2;
 	}
-
+	
 	src = PM_GetPage(1);
 	dest = planepics+1;
 	for (x = 0; x < 4096; x++) {
@@ -652,16 +652,16 @@ static void ClearScreen()
 #ifndef DRAWCEIL
  /* #define DRAWCEIL */
 #endif
-
+ 
 void ThreeDRefresh()
 {
 
 /* clear out the traced array */
 	memset(spotvis, 0, sizeof(spotvis));
 
-#ifndef DRAWCEIL
+#ifndef DRAWCEIL	
 	ClearScreen();
-#endif
+#endif	
 
 	WallRefresh();
 #ifdef DRAWCEIL
@@ -672,7 +672,7 @@ void ThreeDRefresh()
 	DrawScaleds();		/* draw scaled stuff */
 	DrawPlayerWeapon();	/* draw player's hands */
 
-/* show screen and time last cycle */
+/* show screen and time last cycle */	
 	VW_UpdateScreen();
 	frameon++;
 }
@@ -701,24 +701,24 @@ static void ScaledDrawTrans(byte *gfx, int count, byte *vid, unsigned int frac, 
 static void ScaleLine(unsigned int height, byte *source, int x)
 {
 	unsigned int y, frac, delta;
-
+	
 	if (height) {
 		frac = (64 << 16) / height;
 		delta = (64 << 16) - frac*height;
-
+		
 		if (height < viewheight) {
 			y = yoffset + (viewheight - height) / 2;
-
-			ScaledDraw(source, height, gfxbuf + (y * vstride) + x + xoffset,
+			
+			ScaledDraw(source, height, gfxbuf + (y * vstride) + x + xoffset, 
 			delta, frac);
-
-			return;
-		}
-
+			
+			return;	
+		} 
+		
 		y = (height - viewheight) / 2;
 		y *= frac;
 
-		ScaledDraw(source, viewheight, gfxbuf + (yoffset * vstride) + x + xoffset,
+		ScaledDraw(source, viewheight, gfxbuf + (yoffset * vstride) + x + xoffset, 
 		y+delta, frac);
 	}
 }
@@ -726,24 +726,24 @@ static void ScaleLine(unsigned int height, byte *source, int x)
 static void ScaleLineTrans(unsigned int height, byte *source, int x)
 {
 	unsigned int y, frac, delta;
-
+	
 	if (height) {
 		frac = (64 << 16) / height;
 		delta = (64 << 16) - frac*height;
-
+		
 		if (height < viewheight) {
 			y = yoffset + (viewheight - height) / 2;
-
-			ScaledDrawTrans(source, height, gfxbuf + (y * vstride) + x + xoffset,
+			
+			ScaledDrawTrans(source, height, gfxbuf + (y * vstride) + x + xoffset, 
 			delta, frac);
-
-			return;
-		}
-
+			
+			return;	
+		} 
+		
 		y = (height - viewheight) / 2;
 		y *= frac;
-
-		ScaledDrawTrans(&source[y >> 24], viewheight, gfxbuf + (yoffset * vstride) + x + xoffset,
+		
+		ScaledDrawTrans(&source[y >> 24], viewheight, gfxbuf + (yoffset * vstride) + x + xoffset, 
 		y+delta, frac);
 	}
 }
@@ -760,24 +760,24 @@ static void DeCompileSprite(int shapenum)
 	int y, y0, y1;
 	int x, left, right;
 	int cmd;
-
+	
 	MM_GetPtr((void *)&buf, 64 * 64);
-
+	
 	memset(buf, 255, 64 * 64);
-
+	
 	ptr = PM_GetSpritePage(shapenum);
 
 	/* left = ptr[0] | (ptr[1] << 8); */
 	left = ptr[0];
 	/* right = ptr[2] | (ptr[3] << 8); */
 	right = ptr[2];
-
+	
 	cmdptr = &ptr[4];
-
+	
 	for (x = left; x <= right; x++) {
 		cmd = cmdptr[0] | (cmdptr[1] << 8);
 		cmdptr += 2;
-
+					
 		/* while (ptr[cmd+0] | (ptr[cmd+1] << 8)) { */
 		while (ptr[cmd+0]) {
 			/* y1 = (ptr[cmd+0] | (ptr[cmd+1] << 8)) / 2; */
@@ -785,19 +785,19 @@ static void DeCompileSprite(int shapenum)
 			yoff = (int16_t)(ptr[cmd+2] | (ptr[cmd+3] << 8));
 			/* y0 = (ptr[cmd+4] | (ptr[cmd+5] << 8)) / 2; */
 			y0 = ptr[cmd+4] / 2;
-
+			
 			pixels = &ptr[y0 + yoff];
-
+			
 			for (y = y0; y < y1; y++) {
 				/* *(buf + x + (y*64)) = *pixels; */
 				*(buf + (x*64) + y) = *pixels;
 				pixels++;
 			}
-
+			
 			cmd += 6;
 		}
 	}
-
+	
 	spritegfx[shapenum] = buf;
 }
 
@@ -808,22 +808,22 @@ void ScaleShape(int xcenter, int shapenum, unsigned height)
 
 	if (spritegfx[shapenum] == NULL)
 		DeCompileSprite(shapenum);
-
+	
 	for (p = xcenter - (height >> 3), x = 0; x < (64 << 16); x += scaler, p++) {
 		if ((p < 0) || (p >= viewwidth) || (wallheight[p] >= height))
 			continue;
 		ScaleLineTrans(height >> 2, spritegfx[shapenum] + ((x >> 16) << 6), p);
-	}
+	}	
 }
 
 void SimpleScaleShape(int xcenter, int shapenum, unsigned height)
 {
 	unsigned int scaler = (64 << 16) / height;
 	unsigned int x, p;
-
+	
 	if (spritegfx[shapenum] == NULL)
 		DeCompileSprite(shapenum);
-
+	
 	for (p = xcenter - (height / 2), x = 0; x < (64 << 16); x += scaler, p++) {
 		if ((p < 0) || (p >= viewwidth))
 			continue;
@@ -870,7 +870,7 @@ static void ScalePost(byte *wall, int texture)
 	byte *source;
 
 	height = (wallheight[postx] & 0xFFF8) >> 2;
-
+	
 	source = wall+texture;
 	ScaleLine(height, source, postx);
 }
@@ -940,12 +940,12 @@ static void HitVertWall()
 	byte *wall;
 
 	texture = (yintercept>>4)&0xfc0;
-
+	
 	if (xtilestep == -1) {
 		texture = 0xfc0-texture;
 		xintercept += TILEGLOBAL;
 	}
-
+	
 	wallheight[postx] = CalcHeight();
 
 	if (tilehit & 0x40) { // check for adjacent doors
@@ -956,7 +956,7 @@ static void HitVertWall()
 			wallpic = vertwall[tilehit & ~0x40];
 	} else
 		wallpic = vertwall[tilehit];
-
+		
 	wall = PM_GetPage(wallpic);
 	ScalePost(wall, texture);
 }
@@ -968,12 +968,12 @@ static void HitHorizWall()
 	byte *wall;
 
 	texture = (xintercept >> 4) & 0xfc0;
-
+	
 	if (ytilestep == -1)
 		yintercept += TILEGLOBAL;
 	else
 		texture = 0xfc0 - texture;
-
+		
 	wallheight[postx] = CalcHeight();
 
 	if (tilehit & 0x40) { // check for adjacent doors
@@ -994,11 +994,11 @@ static void HitHorizPWall()
 	int wallpic;
 	unsigned texture, offset;
 	byte *wall;
-
+	
 	texture = (xintercept >> 4) & 0xfc0;
-
+	
 	offset = pwallpos << 10;
-
+	
 	if (ytilestep == -1)
 		yintercept += TILEGLOBAL-offset;
 	else {
@@ -1018,10 +1018,10 @@ static void HitVertPWall()
 	int wallpic;
 	unsigned texture, offset;
 	byte *wall;
-
+	
 	texture = (yintercept >> 4) & 0xfc0;
 	offset = pwallpos << 10;
-
+	
 	if (xtilestep == -1) {
 		xintercept += TILEGLOBAL-offset;
 		texture = 0xfc0-texture;
@@ -1029,7 +1029,7 @@ static void HitVertPWall()
 		xintercept += offset;
 
 	wallheight[postx] = CalcHeight();
-
+	
 	wallpic = vertwall[tilehit&63];
 
 	wall = PM_GetPage(wallpic);
@@ -1080,7 +1080,7 @@ static void AsmRefresh()
 	int midangle;
 	int focaltx, focalty;
 	int xstep, ystep;
-
+	
 	midangle = viewangle*(FINEANGLES/ANGLES);
 	xpartialdown = (viewx&(TILEGLOBAL-1));
 	xpartialup = TILEGLOBAL-xpartialdown;
@@ -1135,7 +1135,7 @@ for (postx = 0; postx < viewwidth; postx++) {
 		angle -= FINEANGLES;
 		goto entry90;
 	}
-
+	
 	yintercept = viewy + FixedByFrac(xpartial, ystep); // + xtilestep;
 	xtile = focaltx + xtilestep;
 
@@ -1150,21 +1150,20 @@ for (postx = 0; postx < viewwidth; postx++) {
 vertcheck:
 	if (!samey(yintercept, ytile))
 		goto horizentry;
-
+		
 vertentry:
-	Auto_Map.seen[xtile][TILE(yintercept)] = 1;
 	tilehit = tilemap[xtile][TILE(yintercept)];
 	/* printf("vert: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", postx, tilehit, xtile, ytile, xintercept, yintercept, xpartialup, xpartialdown, ypartialup, ypartialdown, xpartial, ypartial, doorhit, angle, midangle, focaltx, focalty, xstep, ystep); */
-
+	
 	if (tilehit) {
 		if (tilehit & 0x80) {
 			if (tilehit & 0x40) {
 				/* vertpushwall */
 				doorhit = yintercept + (signed)((signed)pwallpos * ystep) / 64;
-
-				if (TILE(doorhit) != TILE(yintercept))
+			
+				if (TILE(doorhit) != TILE(yintercept)) 
 					goto passvert;
-
+					
 				yintercept = doorhit;
 				xintercept = xtile << TILESHIFT;
 				HitVertPWall();
@@ -1174,11 +1173,11 @@ vertentry:
 
 				if (TILE(doorhit) != TILE(yintercept))
 					goto passvert;
-
+				
 				/* check door position */
 				if ((doorhit&0xFFFF) < doorposition[tilehit&0x7f])
 					goto passvert;
-
+				
 				yintercept = doorhit;
 				xintercept = (xtile << TILESHIFT) + TILEGLOBAL/2;
 				HitVertDoor();
@@ -1194,40 +1193,39 @@ passvert:
 	xtile += xtilestep;
 	yintercept += ystep;
 	goto vertcheck;
-
+	
 horizcheck:
 	/* check intersections with horizontal walls */
-
+	
 	if (!samex(xintercept, xtile))
 		goto vertentry;
 
 horizentry:
-	Auto_Map.seen[TILE(xintercept)][ytile] = 1;
 	tilehit = tilemap[TILE(xintercept)][ytile];
 	/* printf("horz: %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", postx, tilehit, xtile, ytile, xintercept, yintercept, xpartialup, xpartialdown, ypartialup, ypartialdown, xpartial, ypartial, doorhit, angle, midangle, focaltx, focalty, xstep, ystep); */
-
+	
 	if (tilehit) {
 		if (tilehit & 0x80) {
 			if (tilehit & 0x40) {
 				doorhit = xintercept + (signed)((signed)pwallpos * xstep) / 64;
-
+		    	
 				/* horizpushwall */
 				if (TILE(doorhit) != TILE(xintercept))
 					goto passhoriz;
-
+				
 				xintercept = doorhit;
-				yintercept = ytile << TILESHIFT;
+				yintercept = ytile << TILESHIFT; 
 				HitHorizPWall();
 			} else {
 				doorhit = xintercept + xstep / 2;
-
+				
 				if (TILE(doorhit) != TILE(xintercept))
 					goto passhoriz;
-
+				
 				/* check door position */
 				if ((doorhit&0xFFFF) < doorposition[tilehit&0x7f])
 					goto passhoriz;
-
+				
 				xintercept = doorhit;
 				yintercept = (ytile << TILESHIFT) + TILEGLOBAL/2;
 				HitHorizDoor();
@@ -1264,7 +1262,7 @@ static int myrand()
 static void fillarray(int *arr, int len)
 {
 	int i;
-
+	
 	for (i = 0; i < len; i++)
 		arr[i] = i;
 }
@@ -1272,31 +1270,31 @@ static void fillarray(int *arr, int len)
 static void randarray(int *arr, int len)
 {
 	int i, j, k;
-
+	
 	for (i = 0; i < len; i++) {
 		j = myrand() % len;
-
+		
 		k = arr[i];
 		arr[i] = arr[j];
 		arr[j] = k;
 	}
 }
-
+			
 void FizzleFade(boolean abortable, int frames, int color)
 {
 	boolean retr;
 	int pixperframe;
 	int x, y, xc, yc;
 	int count, p, frame;
-
+		
 	count = viewwidth * viewheight;
 	pixperframe = count / frames;
-
+	
 	srand(time(NULL));
-
+		
 	fillarray(xarr, viewwidth);
 	randarray(xarr, viewwidth);
-
+	
 	fillarray(yarr, viewheight - 1);
 	randarray(yarr, viewheight - 1);
 
@@ -1304,47 +1302,47 @@ void FizzleFade(boolean abortable, int frames, int color)
 
 	frame = 0;
 	set_TimeCount(0);
-
+	
 	xc = 0;
 	yc = 0;
 	x = 0;
 	y = 0;
-
+	
 	retr = false;
 	do {
 		if (abortable && IN_CheckAck())
 			retr = true;
 		else
 		for (p = 0; p < pixperframe; p++) {
-
+				
 			gfxbuf[(xarr[x]+xoffset)+(yarr[y]+yoffset)*vstride] = color;
-
+			
 			count--;
-
+			
 			x++;
 			if (x >= viewwidth)
 				x = 0;
-
+			
 			y++;
 			if (y >= (viewheight-1))
 				y = 0;
-
-			yc++;
+			
+			yc++;	
 			if (yc >= (viewheight-1)) {
 				yc = 0;
 				y++;
-
+				
 				if (y >= (viewheight-1))
 					y = 0;
 			}
 		}
-
+		
 		VW_UpdateScreen();
-
+		
 		frame++;
 		while (get_TimeCount() < frame);
 	} while (!retr && (count > 0));
-
+	
 	VW_UpdateScreen();
 }
 #endif

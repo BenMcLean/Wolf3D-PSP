@@ -1,25 +1,8 @@
 #ifndef __ID_VH_H__
 #define __ID_VH_H__
 
-// colors
+#define WHITE			15
 #define BLACK			0
-#define BLUE			1
-#define GREEN			2
-#define CYAN			3
-#define RED				4
-#define MAGENTA			5
-#define BROWN			6
-#define GRAY			7
-// lite version of the above colors
-#define	LITE			8
-#define DARKGRAY		(LITE + BLACK)
-#define LITEBLUE		(LITE + BLUE)
-#define LITEGREEN		(LITE + GREEN)
-#define LITECYAN		(LITE + CYAN)
-#define LITERED			(LITE + RED)
-#define LITEMAGENTA		(LITE + MAGENTA)
-#define YELLOW			(LITE + BROWN)
-#define WHITE			(LITE + GRAY)
 
 typedef struct
 {

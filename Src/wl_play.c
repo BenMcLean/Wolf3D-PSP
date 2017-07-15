@@ -311,7 +311,7 @@ void PollMouseMove()
 	int mousexmove = 0, mouseymove = 0;
 
 	IN_GetMouseDelta(&mousexmove, &mouseymove);
-
+	
 	controlx += mousexmove*10/(13-mouseadjustment);
 	controly += mouseymove*20/(13-mouseadjustment);
 }
@@ -428,10 +428,10 @@ void PollControls()
 	}
 
 	/* Update keys */
-	IN_CheckAck();
-
+	IN_CheckAck(); 
+	
 	UpdateInput();
-
+	
 //
 // bound movement to a maximum
 //
@@ -580,7 +580,7 @@ void CheckKeys()
 	 ClearSplitVWB();
 
 	 Message(STR_DEBUG);
-
+	 
 	 CA_UnCacheGrChunk(STARTFONT+1);
 	 IN_ClearKeysDown();
 	 IN_Ack();
@@ -609,12 +609,12 @@ void CheckKeys()
 	if (Paused) {
 		VWB_DrawPic(128, 64, PAUSEDPIC);
 		VW_UpdateScreen();
-
+		
 		SD_MusicOff();
 		IN_Ack();
 		IN_ClearKeysDown();
 		SD_MusicOn();
-
+		
 		Paused = false;
 		return;
 	}
@@ -632,18 +632,18 @@ void CheckKeys()
 		ClearMemory();
 		ClearSplitVWB();
 		US_ControlPanel(scan);
-
+	
 		DrawPlayBorderSides();
 		VW_UpdateScreen();
-
+		
 		if (scan == sc_F9)
 			StartMusic();
 
 		SETFONTCOLOR(0,15);
 		IN_ClearKeysDown();
-
+		
 		lasttimecount = get_TimeCount();
-
+		
 		return;
 	}
 
@@ -659,7 +659,7 @@ void CheckKeys()
 		IN_ClearKeysDown();
 		DrawPlayScreen();
 		VW_UpdateScreen();
-
+		
 		if (!startgame && !loadedgame)
 		{
 			VW_FadeIn();
@@ -668,7 +668,7 @@ void CheckKeys()
 		if (loadedgame)
 			playstate = ex_abort;
 		lasttimecount = get_TimeCount();
-
+		
 		return;
 	}
 
@@ -684,31 +684,6 @@ void CheckKeys()
 		return;
 	}
 
-//
-// A to enter automap
-//
-	if (scan == sc_A)
-	{
-		//StopMusic();
-		ClearMemory();
-		VW_FadeOut();
-
-		AutoMap();
-
-		SETFONTCOLOR(0,15);
-		IN_ClearKeysDown();
-		DrawPlayScreen();
-		VW_UpdateScreen();
-
-		if (!startgame && !loadedgame)
-		{
-			VW_FadeIn();
-			//StartMusic();
-		}
-		lasttimecount = get_TimeCount();
-
-		return;
-	}
 }
 
 
@@ -788,17 +763,17 @@ void InitActorList()
 void GetNewActor()
 {
 	int id;
-
+	
 	if (!objfreelist)
 		Quit("GetNewActor: No free spots in objlist!");
-
+	
 	new = objfreelist;
 	id = new->id;
 	objfreelist = new->prev;
-
+	
 	memset(new, 0, sizeof(*new));
 	new->id = id;
-
+	
 	if (lastobj)
 		lastobj->next = new;
 	new->prev = lastobj;	// new->next is already NULL from memset
@@ -1205,25 +1180,25 @@ long funnyticount;
 void PlayLoop()
 {
 	playstate = lasttimecount = 0;
-
+	
 	frameon = 0;
 	anglefrac = 0;
 	facecount = 0;
 	funnyticount = 0;
-
+	
 	memset (buttonstate,0,sizeof(buttonstate));
 	ClearPaletteShifts();
-
+	
 	if (demoplayback)
 		IN_StartAck();
 
 	set_TimeCount(0);
-
+	
 	do
 	{
 		/* get timing info for last frame */
 		CalcTics();
-
+		
 		/* handle input */
 		PollControls();
 
@@ -1237,7 +1212,7 @@ void PlayLoop()
 
 		for (obj = player; obj; obj = obj->next)
 			DoActor(obj);
-
+		
 		UpdatePaletteShifts();
 
 		ThreeDRefresh();

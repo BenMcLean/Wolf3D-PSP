@@ -7,9 +7,6 @@
 #include "include/wl_def.h"
 #include "include/ff.h"
 
-extern int mapon;
-extern maptype	*mapheaderseg[];
-
 //
 // PRIVATE PROTOTYPES
 //
@@ -47,7 +44,7 @@ CP_iteminfo
 	NewEitems={NE_X,NE_Y,11,0,88},
 	NewItems={NM_X,NM_Y,4,2,24};
 
-CP_itemtype
+CP_itemtype 
 MainMenu[]=
 {
 	{1,STR_NG,(MenuFunc)CP_NewGame},
@@ -90,8 +87,8 @@ CtlMenu[]=
 	// {0,"",0},
 	// {0,"",0},
 	// {0,"",0},
-	// {0,"",0}
-	{1,"No Options Availible",0}
+	// {0,"",0}	
+	{1,"No Options Availible",0}	
 },
 
 #ifndef SPEAR
@@ -204,7 +201,7 @@ static struct {
 char *IN_GetScanName(ScanCode scan)
 {
 	int i;
-
+	
 	for (i = 0; i < (sizeof(ScanNames)/sizeof(ScanNames[0])); i++)
 		if (ScanNames[i].sc == scan)
 			return ScanNames[i].str;
@@ -272,7 +269,7 @@ void US_ControlPanel(byte scancode)
 	//
 	// F-KEYS FROM WITHIN GAME
 	//
-
+	
 	switch(scancode)
 	{
 		/* case sc_F1:
@@ -353,7 +350,7 @@ void US_ControlPanel(byte scancode)
 			CA_UnCacheGrChunk(IDGUYSPALETTE);
 
 			while (IN_KeyDown(sc_I) || IN_KeyDown(sc_D)) IN_CheckAck();
-
+			
 			IN_ClearKeysDown();
 			IN_Ack();
 
@@ -419,7 +416,7 @@ void US_ControlPanel(byte scancode)
 	}
 
 	// RETURN/START GAME EXECUTION
-
+		
 #ifdef SPEAR
 	UnCacheLump(OPTIONS_LUMP_START, OPTIONS_LUMP_END);
 	MM_SortMem();
@@ -1138,7 +1135,7 @@ int CP_LoadGame(int quick)
 			loadedgame=false;
 
 			DrawStatusBar();
-
+			
 			return 1;
 		}
 	}
@@ -1283,7 +1280,7 @@ int CP_SaveGame(int quick)
 		{
 			name[7] = which+'0';
 			SaveTheGame(name, &SaveGameNames[which][0], 0, 0);
-
+			
 			return 1;
 		}
 	}
@@ -1327,7 +1324,7 @@ int CP_SaveGame(int quick)
 				VW_Bar(LSM_X+LSItems.indent+1,LSM_Y+which*13+1,LSM_W-LSItems.indent-16,10,BKGDCOLOR);
 			VW_UpdateScreen();
 
-			if (US_LineInput(LSM_X+LSItems.indent+2,LSM_Y+which*13+1,input,&mapheaderseg[mapon]->name[0],true,31,LSM_W-LSItems.indent-30))
+			if (US_LineInput(LSM_X+LSItems.indent+2,LSM_Y+which*13+1,input,input,true,31,LSM_W-LSItems.indent-30))
 			{
 				SaveGamesAvail[which] = 1;
 				DrawLSAction(1);
@@ -1398,7 +1395,7 @@ int CalibrateJoystick()
 		IN_CheckAck(); /* force update */
 		if (IN_KeyDown(sc_Escape))
 			return 0;
-
+		
 		if (IN_KeyDown(sc_Tab) && IN_KeyDown(sc_P) && MS_CheckParm("debugmode"))
 			PicturePause();
 
@@ -1577,7 +1574,7 @@ void MouseSensitivity()
 					VW_Bar(61+20*mouseadjustment,98,19,9,READHCOLOR);
 					VW_UpdateScreen();
 					SD_PlaySound(MOVEGUN1SND);
-
+					
 					while(IN_KeyDown(sc_LeftArrow)) IN_CheckAck();
 					WaitKeyUp();
 				}
@@ -1594,7 +1591,7 @@ void MouseSensitivity()
 					VW_Bar(61+20*mouseadjustment,98,19,9,READHCOLOR);
 					VW_UpdateScreen();
 					SD_PlaySound(MOVEGUN1SND);
-
+					
 					while(IN_KeyDown(sc_RightArrow)) IN_CheckAck();
 					WaitKeyUp();
 				}
@@ -1853,7 +1850,7 @@ void EnterCtrlData(int index,CustomCtrls *cust,void (*DrawRtn)(int),void (*Print
   {
    tick = picked = 0;
    set_TimeCount(0);
-
+   
    SETFONTCOLOR(0,TEXTCOLOR);
 
    do
@@ -1864,7 +1861,7 @@ void EnterCtrlData(int index,CustomCtrls *cust,void (*DrawRtn)(int),void (*Print
 	  IN_ClearKeysDown();
 
 	IN_CheckAck(); /* force update */
-
+	
 	//
 	// FLASH CURSOR
 	//
@@ -2451,7 +2448,7 @@ void SetupControlPanel()
 	//
 	// SEE WHICH SAVE GAME FILES ARE AVAILABLE & READ STRING IN
 	//
-
+	
 	if (!findfirst(SaveName,&f,0))
 		do
 		{
@@ -2466,7 +2463,7 @@ void SetupControlPanel()
 				}
 			}
 		} while(!findnext(&f));
-#else
+#else 
 	struct _finddata_t f;
 	int which;
 	long hand;
@@ -2493,7 +2490,7 @@ void SetupControlPanel()
 	//
 	// SEE WHICH SAVE GAME FILES ARE AVAILABLE & READ STRING IN
 	//
-
+	
 	if ((hand = _findfirst(SaveName, &f)) != -1)
 		do
 		{
@@ -2501,7 +2498,7 @@ void SetupControlPanel()
 			if (which<10)
 			{
 				char temp[32];
-
+				
 				if (ReadSaveTag(f.name, temp) != -1) {
 					SaveGamesAvail[which]=1;
 					strcpy(&SaveGameNames[which][0],temp);
@@ -2514,7 +2511,7 @@ void SetupControlPanel()
 
 	glob_t globbuf;
 	int which, x;
-
+	
 	CA_CacheGrChunk(STARTFONT+1);
 #ifndef SPEAR
 	CacheLump(CONTROLS_LUMP_START, CONTROLS_LUMP_END);
@@ -2525,20 +2522,20 @@ void SetupControlPanel()
 	SETFONTCOLOR(TEXTCOLOR, BKGDCOLOR);
 	fontnumber = 1;
 	WindowH = 200;
-
+	
 	if (!ingame)
 		CA_LoadAllSounds();
 	else
 		MainMenu[savegame].active = 1;
-
+	
 	if (glob(SaveName, 0, NULL, &globbuf))
 		return;
-
+	
 	for (x = 0; x < globbuf.gl_pathc; x++) {
 		which = globbuf.gl_pathv[x][7] - '0';
 		if (which < 10)	{
 			char temp[32];
-
+			
 			if (ReadSaveTag(globbuf.gl_pathv[x], temp) != -1) {
 				SaveGamesAvail[which]=1;
 				strcpy(&SaveGameNames[which][0],temp);
@@ -2751,7 +2748,7 @@ int HandleMenu(CP_iteminfo *item_i,CP_itemtype *items,void (*routine)(int w))
 			//
 			TicDelay(20);
 			break;
-
+			
 			default:
 				break;
 		}
@@ -2934,7 +2931,7 @@ void SetMenuTextColor(CP_itemtype *items,int hlight)
 void WaitKeyUp(void)
 {
 	ControlInfo ci;
-	while(ReadAnyControl(&ci),
+	while(ReadAnyControl(&ci), 
 		ci.button0|ci.button1|ci.button2|ci.button3|
 		IN_KeyDown(sc_Space)|IN_KeyDown(sc_Enter)|IN_KeyDown(sc_Escape));
 }
@@ -3031,7 +3028,7 @@ void Message(char *string)
 
 	VW_MeasurePropString(string, &mw, &h);
 	mw += 4;
-
+	
 	PrintY=(WindowH/2)-h/2;
 	PrintX=WindowX=160-mw/2;
 
@@ -3047,7 +3044,7 @@ static int lastmusic = -1;
 void StartCPMusic(int song)
 {
 	FreeMusic();
-
+	
 	lastmusic = song;
 
 	SD_StartMusic(song);
@@ -3092,7 +3089,7 @@ void DrawMenuGun(CP_iteminfo *iteminfo)
 
 	x = iteminfo->x;
 	y = iteminfo->y+iteminfo->curpos*13-2;
-
+	
 	VWB_DrawPic(x,y,C_CURSOR1PIC);
 }
 

@@ -95,7 +95,7 @@ void VL_Startup()
 
 	if (surface == NULL) {
 		SDL_Quit();
-		Quit("Couldn't set 512x320 mode");
+		Quit("Couldn't set 320x200 mode");
 	}
 	gfxbuf = surface->pixels;
 	gfxbuf = (byte *)((int)gfxbuf | 0x40000000);
@@ -370,7 +370,7 @@ void INL_Update()
 			else
 			keyboard_handler(sc_Escape, 1); // MENU pressed
 		}
-	}
+	}	
 	if (new_buttons & PSP_CTRL_SELECT)
 	{
 		if (!(buttons & PSP_CTRL_SELECT))
@@ -378,15 +378,12 @@ void INL_Update()
 			// SELECT just released
 			keyboard_handler(sc_BackSpace, 0); // BackSpace not pressed
 			keyboard_handler(sc_Enter, 0); // Enter not pressed
-			keyboard_handler(sc_A, 0); // A not pressed
 		}
 		else
 		{
 			// SELECT just pressed
 			if (buttons & PSP_CTRL_CIRCLE)
 				keyboard_handler(sc_BackSpace, 1); // BackSpace pressed
-			else if (buttons & PSP_CTRL_SQUARE)
-				keyboard_handler(sc_A, 1); // A pressed
 			else
 				keyboard_handler(sc_Enter, 1); // Enter pressed
 		}
